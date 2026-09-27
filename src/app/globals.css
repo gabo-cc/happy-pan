@@ -41,6 +41,7 @@ a {
   color: var(--cafe);
   font-size: 1.4rem;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .marca span {
@@ -69,6 +70,7 @@ a {
 .enlace-catalogo {
   padding: 12px 20px;
   font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .portada {
@@ -77,7 +79,7 @@ a {
   margin: 0 auto 70px;
   padding: 60px 5%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: 50px;
 }
@@ -113,51 +115,47 @@ a {
 
 .boton-principal {
   display: inline-flex;
+  align-items: center;
   gap: 18px;
   margin-top: 20px;
   padding: 16px 24px;
 }
 
+/* Foto principal */
+
 .portada-visual {
-  min-height: 440px;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
   border-radius: 46% 54% 43% 57%;
   background: var(--durazno);
-  display: grid;
-  place-items: center;
-  position: relative;
 }
 
-.circulo-decorativo {
-  width: min(75%, 350px);
-  aspect-ratio: 1;
-  border: 12px solid #fff2e5;
-  border-radius: 50%;
-  background: #e4a16d;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 25px 45px #63341f24;
-}
-
-.circulo-decorativo span {
-  font-size: clamp(7rem, 17vw, 12rem);
+.portada-foto {
+  object-fit: cover;
+  object-position: 65% center;
 }
 
 .sello {
   position: absolute;
-  right: -15px;
-  bottom: 50px;
+  z-index: 1;
+  right: 12px;
+  bottom: 45px;
   width: 110px;
   height: 110px;
+  padding: 18px;
   border-radius: 50%;
   background: var(--cafe);
   color: white;
   display: grid;
   place-items: center;
-  padding: 18px;
   text-align: center;
   font-weight: 700;
   transform: rotate(12deg);
 }
+
+/* Catálogo */
 
 .introduccion-catalogo,
 .sobre-nosotros {
@@ -177,17 +175,99 @@ a {
   letter-spacing: -0.04em;
 }
 
-.introduccion-catalogo p {
+.introduccion-catalogo > p {
   margin: auto;
 }
 
+.lista-categorias {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0 42px;
+}
+
+.categoria-etiqueta {
+  padding: 10px 20px;
+  border: 1px solid #d8aa88;
+  border-radius: 999px;
+  color: var(--cafe);
+  font-weight: 700;
+}
+
+.lista-productos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  text-align: left;
+}
+
+.tarjeta-producto {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 12px 30px #63341f12;
+}
+
+.producto-imagen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #f8dfca;
+}
+
+.foto-producto {
+  object-fit: cover;
+}
+
+.producto-informacion {
+  padding: 20px;
+}
+
+.producto-informacion h3 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+.producto-informacion p {
+  min-height: 52px;
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+}
+
+.producto-informacion strong {
+  color: #b4683a;
+  font-size: 1.1rem;
+}
+
+/* Sobre nosotros */
+
 .sobre-nosotros {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: 60px;
   border-top: 1px solid #ead8c9;
 }
+
+/* Tabletas */
+
+@media (max-width: 900px) {
+  .encabezado nav {
+    gap: 16px;
+  }
+
+  .portada {
+    gap: 30px;
+  }
+
+  .lista-productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Móviles */
 
 @media (max-width: 760px) {
   .encabezado nav {
@@ -200,15 +280,187 @@ a {
   }
 
   .portada {
+    min-height: 0;
     padding-top: 35px;
     gap: 40px;
   }
 
   .portada-visual {
-    min-height: 350px;
+    width: min(100%, 440px);
+    margin-inline: auto;
+  }
+
+  .sobre-nosotros {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .encabezado {
+    min-height: 76px;
+    gap: 10px;
+  }
+
+  .marca {
+    font-size: 1.15rem;
+  }
+
+  .enlace-catalogo {
+    padding: 10px 14px;
+    font-size: 0.75rem;
+  }
+
+  .portada {
+    margin-bottom: 25px;
+  }
+
+  .portada h1 {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+  }
+
+  .portada-visual {
+    width: 100%;
   }
 
   .sello {
-    right: 0;
+    right: 8px;
+    bottom: 20px;
+    width: 88px;
+    height: 88px;
+    padding: 12px;
+    font-size: 0.8rem;
   }
+
+  .introduccion-catalogo,
+  .sobre-nosotros {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .lista-productos {
+    grid-template-columns: 1fr;
+  }
+
+  .producto-informacion p {
+    min-height: 0;
+  }
+}
+
+.categoria-etiqueta:hover {
+  background: var(--cafe);
+  border-color: var(--cafe);
+  color: white;
+}
+
+.pagina-categoria {
+  max-width: 1200px;
+  min-height: 70vh;
+  margin: auto;
+  padding: 60px 5% 100px;
+}
+
+.volver-inicio {
+  display: block;
+  width: fit-content;
+  margin-bottom: 48px;
+  color: var(--cafe);
+  font-weight: 700;
+}
+
+.pagina-categoria h1 {
+  margin: 12px 0;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.pagina-categoria > p {
+  margin-bottom: 42px;
+  color: #765d50;
+  line-height: 1.7;
+}
+
+.tarjeta-enlace {
+  display: block;
+  height: 100%;
+  color: inherit;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px #63341f20;
+}
+
+.tarjeta-producto {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pagina-producto {
+  max-width: 1200px;
+  min-height: 70vh;
+  margin: auto;
+  padding: 60px 5% 100px;
+}
+
+.detalle-producto {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 60px;
+}
+
+.detalle-imagen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #f8dfca;
+}
+
+.detalle-informacion h1 {
+  margin: 14px 0;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.detalle-informacion p {
+  color: #765d50;
+  line-height: 1.7;
+}
+
+.detalle-informacion strong {
+  display: block;
+  margin-top: 24px;
+  color: #b4683a;
+  font-size: 1.8rem;
+}
+
+@media (max-width: 760px) {
+  .detalle-producto {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+.pagina-estado {
+  min-height: 70vh;
+  padding: 100px 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pagina-estado h1 {
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.pagina-estado p {
+  max-width: 440px;
+  color: #765d50;
+  line-height: 1.7;
+}
+
+.pagina-estado .boton-principal {
+  border: 0;
+  cursor: pointer;
 }
