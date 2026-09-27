@@ -30,7 +30,11 @@ export default async function PaginaCategoria({
       {productos.length > 0 ? (
         <div className="lista-productos">
           {productos.map((producto) => (
-            <ProductoCard key={producto.id} producto={producto} />
+            <ProductoCard
+              key={producto.id}
+              producto={producto}
+              desdeCategoria
+            />
           ))}
         </div>
       ) : (

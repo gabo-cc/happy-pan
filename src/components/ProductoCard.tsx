@@ -2,10 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Producto } from "@/lib/types";
 
-export default function ProductoCard({ producto }: { producto: Producto }) {
+export default function ProductoCard({
+  producto,
+  desdeCategoria = false,
+}: {
+  producto: Producto;
+  desdeCategoria?: boolean;
+}) {
+  const href = desdeCategoria
+    ? `/productos/${producto.slug}?desde=categoria`
+    : `/productos/${producto.slug}`;
+
   return (
     <article className="tarjeta-producto">
-      <Link href={`/productos/${producto.slug}`} className="tarjeta-enlace">
+      <Link href={href} className="tarjeta-enlace">
         <div className="producto-imagen">
           {producto.imagen_url && (
             <Image
